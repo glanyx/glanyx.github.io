@@ -1,5 +1,5 @@
 import React from 'react'
-import { styled, Slide } from '@material-ui/core'
+import { styled, useMediaQuery, Slide } from '@material-ui/core'
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp'
 
 const Text = styled('h2')(() => ({
@@ -8,7 +8,8 @@ const Text = styled('h2')(() => ({
   letterSpacing: 10,
   transform: 'translate(-50%, -50%)',
   whiteSpace: 'nowrap',
-  cursor: 'default'
+  cursor: 'default',
+  userSelect: 'none'
 }))
 
 const Subtitle = styled(Text)(() => ({
@@ -25,11 +26,8 @@ const Title = styled(Text)(() => ({
   position: 'absolute',
   clipPath: 'inset(0 100% 0 0)',
   transition: 'clip-path 1s ease-in-out',
-}))
-
-const Hidden = styled(Text)(() => ({
-  display: 'inline',
-  opacity: 0
+  maxWidth: '100vw',
+  textAlign: 'justify'
 }))
 
 const Wrapper = styled('div')(() => ({
@@ -48,12 +46,18 @@ const Wrapper = styled('div')(() => ({
 
 const Home = () => {
 
+  const desktop = useMediaQuery('(min-width: 800px)')
+
   return(
     <Slide direction='right' in={true} mountOnEnter unmountOnExit>
       <Wrapper>
         <Subtitle id='subtitle'>Hi</Subtitle>
-        <Title id='title'>I'm Glanyx</Title>
-        <Hidden>I'm Glanyx</Hidden>
+        <Title id='title' style={{
+          whiteSpace: desktop ? undefined : 'break-spaces',
+          fontSize: desktop ? 72 : 48
+        }}>
+          I'm Glanyx
+        </Title>
         <p>
           <KeyboardArrowUpIcon className='animatedArrow' />
         </p>

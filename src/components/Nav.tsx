@@ -24,10 +24,10 @@ const StyledButton = styled(IconButton)(({ theme }) => ({
   zIndex: 1100
 }))
 
-const Menu = styled('div')(({ theme }) => ({
+const Menu = styled('div')(() => ({
   display: 'flex',
   width: '50%',
-  height: '100%',
+  height: '100vh',
   backgroundColor: fade('#616161', 0.6),
   justifyContent: 'center',
   alignContent: 'center',

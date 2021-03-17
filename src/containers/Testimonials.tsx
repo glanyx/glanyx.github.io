@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { styled, makeStyles, fade, Slide, Button, Divider, Avatar } from '@material-ui/core'
+import { styled, makeStyles, useMediaQuery, fade, Slide, Button, Divider, Avatar } from '@material-ui/core'
 import { ReactComponent as ParadoxLogo } from '../assets/paradox-interactive.svg'
 import { ReactComponent as SegaLogo } from '../assets/sega-logo.svg'
 
@@ -106,17 +106,16 @@ const Text = styled('p')(({ theme }) => ({
 const CommentWrapper = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'row',
-  maxWidth: 700,
-  height: '25%',
+  maxWidth: '70vw',
   borderRadius: 25,
   backgroundColor: fade(theme.palette.common.white, 0.2),
   position: 'absolute',
-  top: '60%',
   fontSize: 20,
   padding: theme.spacing(3),
   textAlign: 'start',
   borderTop: '1px solid rgba(255, 255, 255, 0.5)',
-  borderLeft: '1px solid rgba(255, 255, 255, 0.5)'
+  borderLeft: '1px solid rgba(255, 255, 255, 0.5)',
+  paddingBottom: theme.spacing(10)
 }))
 
 const CommentContent = styled('div')(() => ({
@@ -184,8 +183,8 @@ const clients: Array<IClient> = [
 const Testimonies = () => {
 
   const classes = useStyles()
-
   const [active, setActive] = useState<string | null>(null)
+  const desktop = useMediaQuery('(min-width: 800px)')
 
   const handleSelect = (event: any) => {
     setActive(event.currentTarget.value)
@@ -196,17 +195,21 @@ const Testimonies = () => {
       <Wrapper>
         <Banner className={active ? classes.bannerActive : ''}>
           {clients.map(client =>
-            <Button value={client.name} disableRipple disableElevation variant='text' onClick={handleSelect}>
+            <Button value={client.name} disableRipple disableElevation variant='text' onClick={handleSelect} style={{ transform: desktop ? '' : 'scale(0.5)' }}>
               <Client className={client.name === active ? classes.active : classes.inactive}>
                 {typeof(client.logo) === 'string' ? <Logo src={client.logo} /> : client.logo}
-                <Text id='name'>{client.name}</Text>
+                {desktop && <Text id='name'>{client.name}</Text>}
               </Client>
             </Button>
           )}
         </Banner>
         {clients.map(client =>
           <Slide direction='right' in={client.name === active} timeout={{ enter: 500, exit: 300 }}>
-            <CommentWrapper>
+            <CommentWrapper style={{
+              maxWidth: desktop ? '40%' : '70vw',
+              fontSize: desktop ? 18 : 12,
+              top: desktop ? '60%': '45%',
+            }}>
               {client.avatar &&
                 <>
                   <CommentContent>

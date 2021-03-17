@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { styled, makeStyles, Slide, Button, Avatar, Divider } from '@material-ui/core'
+import { styled, useMediaQuery, makeStyles, Slide, Button, Avatar, Divider } from '@material-ui/core'
 import Picture from '../assets/ME.png'
 
 const useStyles = makeStyles(() => ({
@@ -47,7 +47,7 @@ const StyledAvatar = styled(Avatar)(() => ({
 
 const SwapWrapper = styled('div')(() => ({
   position: 'relative',
-  width: 600,
+  width: '30vw',
   height: 150,
 }))
 
@@ -83,21 +83,23 @@ const StyledButton = styled(Button)(({ theme }) => ({
 const About = () => {
 
   const classes = useStyles()
-
   const [active, setActive] = useState<boolean>(false)
+  const desktop = useMediaQuery('(min-width: 800px)')
 
   return(
     <Slide direction='right' in={true} mountOnEnter unmountOnExit>
       <Wrapper>
         <InnerWrapper>
           <SwapWrapper>
-            <ContentWrapper className={active ? classes.mainActive : classes.mainInactive}>
+            <ContentWrapper className={!desktop ? classes.mainActive : active ? classes.mainActive : classes.mainInactive} style={{
+              fontSize: desktop ? 'calc(10px + 2vmin)' : 14
+            }}>
               <StyledHeader>Mike Kornet | Glanyx</StyledHeader>
               <p>Software Engineer</p>
               <p>Fullstack Web Development | Discord Bots</p>
               <p>React | Node.js | TypeScript | Python | Java</p>
             </ContentWrapper>
-            <ContentWrapper className={active ? classes.subActive : classes.subInactive}>
+            <ContentWrapper className={!desktop ? classes.subActive : active ? classes.subActive : classes.subInactive}>
               <StyledHeader>Mike Kornet | Glanyx</StyledHeader>
               <p>London | United Kingdom</p>
               <p>Loves Cats</p>
@@ -106,7 +108,7 @@ const About = () => {
           <VerticalDivider className={active ? classes.dividerActive : classes.dividerInactive} orientation='vertical' />
           <StyledAvatar src={Picture} />
         </InnerWrapper>
-        <StyledButton onClick={() => setActive(!active)}>More</StyledButton>
+        {desktop && <StyledButton onClick={() => setActive(!active)}>More</StyledButton>}
       </Wrapper>
     </Slide>
   )
