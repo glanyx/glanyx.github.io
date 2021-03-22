@@ -63,8 +63,8 @@ const Home = () => {
   return(
     <Slide direction='right' in={true} mountOnEnter unmountOnExit>
       <Wrapper>
-        <Subtitle className={type} id='subtitle'>Hi</Subtitle>
-        <Title className={type === classes.main ? classes.sub : classes.activeSub} id='title' style={{
+        <Subtitle className={type === classes.main ? classes.sub : classes.activeSub} id='subtitle'>Hi</Subtitle>
+        <Title className={type} id='title' style={{
           whiteSpace: desktop ? undefined : 'break-spaces',
           fontSize: desktop ? 72 : 48
         }}>
