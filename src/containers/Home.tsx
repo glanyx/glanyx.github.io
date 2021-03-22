@@ -1,6 +1,24 @@
-import React from 'react'
-import { styled, useMediaQuery, Slide } from '@material-ui/core'
-import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp'
+import React, { useEffect, useState } from 'react'
+import { styled, useMediaQuery, makeStyles, Slide } from '@material-ui/core'
+
+const useStyles = makeStyles(() => ({
+  main: {
+    clipPath: 'inset(0 100% 0 0)',
+    transition: 'clip-path 1s ease-in-out',
+  },
+  sub: {
+    clipPath: 'inset(0 0 0 0)',
+    transition: 'clip-path 1s 1s ease-in-out',
+  },
+  activeMain: {
+    clipPath: 'inset(0 0 0 0)',
+    transition: 'clip-path 1s 1s ease-in-out',
+  },
+  activeSub: {
+    clipPath: 'inset(0 0 100% 0)',
+    transition: 'clip-path 1s ease-in-out',
+  }
+}))
 
 const Text = styled('h2')(() => ({
   fontSize: 72,
@@ -16,51 +34,42 @@ const Subtitle = styled(Text)(() => ({
   left: '50%',
   top: '50%',
   position: 'absolute',
-  clipPath: 'inset(0 0 0 0)',
-  transition: 'clip-path 1s 1s ease-in-out',
 }))
 
 const Title = styled(Text)(() => ({
   left: '50%',
   top: '50%',
   position: 'absolute',
-  clipPath: 'inset(0 100% 0 0)',
-  transition: 'clip-path 1s ease-in-out',
   maxWidth: '100vw',
   textAlign: 'justify'
 }))
 
 const Wrapper = styled('div')(() => ({
-  '&:hover': {
-    '& #subtitle': {
-      clipPath: 'inset(0 0 100% 0)',
-      transition: 'clip-path 1s ease-in-out',
-    },
-    '& #title': {
-      clipPath: 'inset(0 0 0 0)',
-      transition: 'clip-path 1s 1s ease-in-out',
-    },
-  },
   position: 'relative',
 }))
 
 const Home = () => {
 
+  const classes = useStyles()
   const desktop = useMediaQuery('(min-width: 800px)')
+  const [type, setType] = useState<string>(classes.main)
+
+  useEffect(() => {
+    setTimeout(() => {
+      setType(type === classes.main ? classes.activeMain : classes.main)
+    }, 5000)
+  })
 
   return(
     <Slide direction='right' in={true} mountOnEnter unmountOnExit>
       <Wrapper>
-        <Subtitle id='subtitle'>Hi</Subtitle>
-        <Title id='title' style={{
+        <Subtitle className={type} id='subtitle'>Hi</Subtitle>
+        <Title className={type === classes.main ? classes.sub : classes.activeSub} id='title' style={{
           whiteSpace: desktop ? undefined : 'break-spaces',
           fontSize: desktop ? 72 : 48
         }}>
           I'm Glanyx
         </Title>
-        <p>
-          <KeyboardArrowUpIcon className='animatedArrow' />
-        </p>
       </Wrapper>
     </Slide>
   )

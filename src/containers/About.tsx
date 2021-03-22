@@ -91,7 +91,7 @@ const About = () => {
       <Wrapper>
         <InnerWrapper>
           <SwapWrapper>
-            <ContentWrapper className={!desktop ? classes.mainActive : active ? classes.mainActive : classes.mainInactive} style={{
+            <ContentWrapper className={desktop ? active ? classes.mainActive : classes.mainInactive : classes.mainActive} style={{
               fontSize: desktop ? 'calc(10px + 2vmin)' : 14
             }}>
               <StyledHeader>Mike Kornet | Glanyx</StyledHeader>
@@ -99,7 +99,7 @@ const About = () => {
               <p>Fullstack Web Development | Discord Bots</p>
               <p>React | Node.js | TypeScript | Python | Java</p>
             </ContentWrapper>
-            <ContentWrapper className={!desktop ? classes.subActive : active ? classes.subActive : classes.subInactive}>
+            <ContentWrapper className={desktop ? active ? classes.subActive : classes.subInactive : classes.subActive}>
               <StyledHeader>Mike Kornet | Glanyx</StyledHeader>
               <p>London | United Kingdom</p>
               <p>Loves Cats</p>

@@ -12,16 +12,3 @@
 .App-link {
   color: #61dafb;
 }
-
-.animatedArrow {
-  animation: MoveUpDown 1s linear infinite
-}
-
-@keyframes MoveUpDown {
-  0%, 100% {
-    transform: translateY(65px);
-  }
-  50% {
-    transform: translateY(85px);
-  }
-}
